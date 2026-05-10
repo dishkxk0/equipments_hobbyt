@@ -32,7 +32,7 @@
                         <li><a href="about.html">Про нас</a></li>
                     </ul>
                 </nav>
-                <a href="#"><img src="images/cart.png" width="30px" height="30px"></a>
+                <a href="cart.html"><img src="images/cart.png" width="30px" height="30px"></a>
                 <img src="images/menu.png" class="menu-icon" onclick="menutoggle()">
             </div>
             <div class="row hero-content">
@@ -48,28 +48,55 @@
         </div>
     </div>
 
-    <!-- Feadtued Categories -->
-
-    <div class="categories">
-        <div class="small-container">
-            <div class="row">
-                <div class="col-3">
-                    <img src="images/category-1.jpg">
-                </div>
-                <div class="col-3">
-                    <img src="images/category-2.jpg">
-                </div>
-                <div class="col-3">
-                    <img src="images/category-3.jpg">
-                </div>
+    <!-- Популярні товари (Карусель) -->
+    <div class="popular-products-section small-container">
+        <div class="section-top">
+            <h2 class="section-title">Популярні товари</h2>
+            <div class="carousel-nav">
+                <button id="prevBtn"><i class="fa fa-angle-left"></i></button>
+                <button id="nextBtn"><i class="fa fa-angle-right"></i></button>
+            </div>
+        </div>
+        <div class="carousel-container" id="popularCarousel">
+            <div class="product-card">
+                <img src="images/4.png" alt="Product">
+                <h4>Ручка для армрестлінгу PRO</h4>
+                <p>1 200 ₴</p>
+            </div>
+            <div class="product-card">
+                <img src="images/4.png" alt="Product">
+                <h4>Ручка для армрестлінгу Basic</h4>
+                <p>800 ₴</p>
+            </div>
+            <div class="product-card">
+                <img src="images/4.png" alt="Product">
+                <h4>Конус для тренувань</h4>
+                <p>1 500 ₴</p>
+            </div>
+            <div class="product-card">
+                <img src="images/4.png" alt="Product">
+                <h4>Ексцентрик для зап'ястя</h4>
+                <p>1 100 ₴</p>
+            </div>
+            <div class="product-card">
+                <img src="images/4.png" alt="Product">
+                <h4>Універсальна ручка</h4>
+                <p>950 ₴</p>
+            </div>
+            <div class="product-card">
+                <img src="images/4.png" alt="Product">
+                <h4>Ручка 'Циліндр'</h4>
+                <p>1 000 ₴</p>
             </div>
         </div>
     </div>
 
+
+
     <!-- Рекомендовані товари -->
 
     <div class="small-container">
-        <h2 class="title">Рекомендовані товари</h2>
+        <h2 class="title">Категорії товарів</h2>
         <div class="row">
             <div class="col-4">
                 <div class="category-col">
@@ -107,7 +134,7 @@
         <h2 class="title">Нові товари</h2>
         <div class="row">
             <div class="col-4">
-                <img src="images/product-5.jpg">
+                <img src="images/4.png">
                 <h4>Червона футболка з принтом</h4>
                 <div class="rating">
                     <i class="fa fa-star"></i>
@@ -119,7 +146,7 @@
                 <p>$50.00</p>
             </div>
             <div class="col-4">
-                <img src="images/product-6.jpg">
+                <img src="images/4.png">
                 <h4>Червона футболка з принтом</h4>
                 <div class="rating">
                     <i class="fa fa-star"></i>
@@ -131,7 +158,7 @@
                 <p>$50.00</p>
             </div>
             <div class="col-4">
-                <img src="images/product-7.jpg">
+                <img src="images/4.png">
                 <h4>Червона футболка з принтом</h4>
                 <div class="rating">
                     <i class="fa fa-star"></i>
@@ -143,7 +170,7 @@
                 <p>$50.00</p>
             </div>
             <div class="col-4">
-                <img src="images/product-8.jpg">
+                <img src="images/4.png">
                 <h4>Червона футболка з принтом</h4>
                 <div class="rating">
                     <i class="fa fa-star"></i>
@@ -157,7 +184,7 @@
         </div>
         <div class="row">
             <div class="col-4">
-                <img src="images/product-9.jpg">
+                <img src="images/4.png">
                 <h4>Червона футболка з принтом</h4>
                 <div class="rating">
                     <i class="fa fa-star"></i>
@@ -169,7 +196,7 @@
                 <p>$50.00</p>
             </div>
             <div class="col-4">
-                <img src="images/product-10.jpg">
+                <img src="images/4.png">
                 <h4>Червона футболка з принтом</h4>
                 <div class="rating">
                     <i class="fa fa-star"></i>
@@ -181,7 +208,7 @@
                 <p>$50.00</p>
             </div>
             <div class="col-4">
-                <img src="images/product-11.jpg">
+                <img src="images/4.png">
                 <h4>Червона футболка з принтом</h4>
                 <div class="rating">
                     <i class="fa fa-star"></i>
@@ -193,7 +220,7 @@
                 <p>$50.00</p>
             </div>
             <div class="col-4">
-                <img src="images/product-12.jpg">
+                <img src="images/4.png">
                 <h4>Червона футболка з принтом</h4>
                 <div class="rating">
                     <i class="fa fa-star"></i>
@@ -207,10 +234,30 @@
         </div>
     </div>
 
-    <!-- Offer Banner -->
-    <div class="offer" style="padding: 0; background-color: rgb(0, 0, 0);">
-        <div class="small-container" style="padding: 0;">
-            <img src="images/baner 1.png" alt="Offer Banner" style="width: 100%; display: block; border-radius: 0;">
+    <!-- Offer Banner Slider -->
+    <div class="offer-slider-container">
+        <div class="offer-slide-bg" style="background-image: url('images/golovnyj baner.png');"></div>
+        <div class="offer-slide-bg" style="background-image: url('images/golovnyj baner 1.png');"></div>
+        <div class="offer-slide-bg" style="background-image: url('images/golovnyj baner 3.png');"></div>
+        
+        <div class="slider-overlay"></div>
+
+        <img src="images/logo-white.png" class="offer-logo" alt="Hobbyt Logo">
+
+        <div class="offer-slide-content content-1">
+            <h2>Потужний хват – твоя перевага</h2>
+            <p>Розвивай силу пальців, кистей та передпліч за допомогою професійних ручок.</p>
+            <a href="products.html" class="btn">Переглянути каталог</a>
+        </div>
+        <div class="offer-slide-content content-2">
+            <h2>Міцні та надійні матеріали</h2>
+            <p>3D-друк з високоякісного пластику витримує інтенсивні навантаження.</p>
+            <a href="products.html" class="btn">Дізнатись більше</a>
+        </div>
+        <div class="offer-slide-content content-3">
+            <h2>Компактні та зручні</h2>
+            <p>Легкі, портативні та ідеально підходять для тренувань будь-де: в залі чи вдома.</p>
+            <a href="products.html" class="btn">Оформити замовлення</a>
         </div>
     </div>
 
@@ -220,8 +267,7 @@
             <div class="row">
                 <div class="col-3">
                     <i class="fa fa-quote-left"></i>
-                    <p>Це просто фіктивний текст друкарської та поліграфічної промисловості. Lorem Ipsum є стандартним
-                        фіктивним текстом у галузі.</p>
+                    <p>Купив ручку для тренування пронації. Якість виготовлення ідеальна — нічого не скрипить і не люфтить. Однозначно вартує своїх грошей!</p>
                     <div class="rating">
                         <i class="fa fa-star"></i>
                         <i class="fa fa-star"></i>
@@ -229,13 +275,12 @@
                         <i class="fa fa-star"></i>
                         <i class="fa fa-star"></i>
                     </div>
-                    <img src="images/user-1.png">
-                    <h3>Sean Parker</h3>
+                    <img src="images/Taras.jpeg" style="height: 50px; object-fit: cover;">
+                    <h3>Kibitkin Taras</h3>
                 </div>
                 <div class="col-3">
                     <i class="fa fa-quote-left"></i>
-                    <p>Це просто фіктивний текст друкарської та поліграфічної промисловості. Lorem Ipsum є стандартним
-                        фіктивним текстом у галузі.</p>
+                    <p>Ексцентрики та ручки-конуси від Hobbyt — це топ. Матеріали підібрані чудово, ручка сидить у руці як влита. Дуже задоволений покупкою!</p>
                     <div class="rating">
                         <i class="fa fa-star"></i>
                         <i class="fa fa-star"></i>
@@ -243,13 +288,12 @@
                         <i class="fa fa-star"></i>
                         <i class="fa fa-star"></i>
                     </div>
-                    <img src="images/user-2.png">
-                    <h3>Mike Smith</h3>
+                    <img src="images/Anton.jpeg" style="height: 50px; object-fit: cover;">
+                    <h3>Kibitkin Anton</h3>
                 </div>
                 <div class="col-3">
                     <i class="fa fa-quote-left"></i>
-                    <p>Це просто фіктивний текст друкарської та поліграфічної промисловості. Lorem Ipsum є стандартним
-                        фіктивним текстом у галузі.</p>
+                    <p>Замовляю вже втретє. Спорядження реально допомагає відчути правильні кути та збільшити силу кисті. Всім армрестлерам раджу спробувати!</p>
                     <div class="rating">
                         <i class="fa fa-star"></i>
                         <i class="fa fa-star"></i>
@@ -257,8 +301,8 @@
                         <i class="fa fa-star"></i>
                         <i class="fa fa-star"></i>
                     </div>
-                    <img src="images/user-3.png">
-                    <h3>Mabel Joe</h3>
+                    <img src="images/Andrij.jpeg" style="height: 50px; object-fit: cover;">
+                    <h3>Kibitkin Andrij</h3>
                 </div>
             </div>
         </div>
@@ -292,6 +336,20 @@
             else {
                 MenuItems.style.maxHeight = "0px"
             }
+        }
+
+        /* Carousel Navigation */
+        const carousel = document.getElementById('popularCarousel');
+        const prevBtn = document.getElementById('prevBtn');
+        const nextBtn = document.getElementById('nextBtn');
+
+        if(carousel && prevBtn && nextBtn) {
+            prevBtn.addEventListener('click', () => {
+                carousel.scrollBy({ left: -270, behavior: 'smooth' });
+            });
+            nextBtn.addEventListener('click', () => {
+                carousel.scrollBy({ left: 270, behavior: 'smooth' });
+            });
         }
     </script>
 
