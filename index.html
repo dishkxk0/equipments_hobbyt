@@ -13,8 +13,14 @@
 
 <body class="dark-theme">
 
-    <div class="header">
-        <div class="container">
+    <div class="header hero-header">
+        <div class="hero-slider">
+            <div class="slide" style="background-image: url('images/golovnyj baner.png');"></div>
+            <div class="slide" style="background-image: url('images/golovnyj baner 1.png');"></div>
+            <div class="slide" style="background-image: url('images/golovnyj baner 3.png');"></div>
+            <div class="overlay"></div>
+        </div>
+        <div class="container relative-container">
             <div class="navbar">
                 <div class="logo">
                     <a href="index.html"><img src="images/logo-white.png" alt="logo" width="125px"></a>
@@ -29,15 +35,14 @@
                 <a href="#"><img src="images/cart.png" width="30px" height="30px"></a>
                 <img src="images/menu.png" class="menu-icon" onclick="menutoggle()">
             </div>
-            <div class="row">
-                <div class="col-2">
-                    <h1>Надайте своєму тренуванню <br> новий стиль!</h1>
-                    <p>Успіх - це не завжди про велич. Це про стабільність. Постійна <br> важка праця приносить успіх.
-                        Велич прийде.</p>
-                    <a href="" class="btn">Дослідити зараз &#8594;</a>
+            <div class="row hero-content">
+                <div class="col-2 hero-text-col">
+                    <h1 class="hero-title">Обладнання,<br>що робить різницю</h1>
+                    <p class="hero-subtitle">Від новачка до професіонала - маємо все, що потрібно для результату.</p>
+                    <a href="products.html" class="btn">Переглянути каталог &#8594;</a>
                 </div>
                 <div class="col-2">
-                    <img src="images/image1.png">
+                    <!-- Залишено порожнім умисно -->
                 </div>
             </div>
         </div>
