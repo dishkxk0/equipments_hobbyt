@@ -499,3 +499,76 @@ form a{
         display: none;
     }
 }
+
+/* Category Cards */
+.category-col {
+    position: relative;
+    padding: 0;
+    border-radius: 10px;
+    overflow: hidden;
+    height: 400px;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+}
+.category-col img {
+    border-radius: 10px;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+}
+.category-col .category-overlay {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: 60%;
+    background: linear-gradient(transparent, rgba(14, 94, 163, 0.9));
+    display: flex;
+    align-items: flex-end;
+    padding: 20px;
+    border-radius: 0 0 10px 10px;
+}
+.category-col .category-overlay h3 {
+    color: #fff;
+    font-size: 16px;
+    margin: 0;
+    font-weight: 500;
+    text-align: left;
+}
+
+/* Dark Theme */
+body.dark-theme {
+    background: #121212;
+    color: #fff;
+}
+body.dark-theme a,
+body.dark-theme p,
+body.dark-theme .title,
+body.dark-theme h4,
+body.dark-theme .testimonial .col-3 h3,
+body.dark-theme small {
+    color: #e0e0e0;
+}
+body.dark-theme .header,
+body.dark-theme .offer {
+    background: radial-gradient(#2a2a2a, #121212);
+}
+body.dark-theme .testimonial .col-3,
+body.dark-theme .form-container {
+    background: #1e1e1e;
+    box-shadow: 0 0 20px 0px rgba(0, 0, 0, 0.5);
+}
+body.dark-theme .testimonial .col-3 p {
+    color: #ccc;
+}
+body.dark-theme select,
+body.dark-theme input {
+    background: #333;
+    color: #fff;
+    border: 1px solid #555;
+    color-scheme: dark;
+}
+body.dark-theme img[src*="cart.png"],
+body.dark-theme img.menu-icon {
+    filter: invert(1);
+}
