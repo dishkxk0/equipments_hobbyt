@@ -9,6 +9,8 @@
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap"
         rel="stylesheet">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+    <script src="js/products-data.js"></script>
+    <script src="js/render.js"></script>
 </head>
 
 <body class="dark-theme">
@@ -37,8 +39,8 @@
             </div>
             <div class="row hero-content">
                 <div class="col-2 hero-text-col">
-                    <h1 class="hero-title">Обладнання,<br>що робить різницю</h1>
-                    <p class="hero-subtitle">Від новачка до професіонала - маємо все, що потрібно для результату.</p>
+                    <h1 class="hero-title" data-content="index.heroTitle">Обладнання,<br>що робить різницю</h1>
+                    <p class="hero-subtitle" data-content="index.heroText">Від новачка до професіонала - маємо все, що потрібно для результату.</p>
                     <a href="products.html" class="btn">Переглянути каталог &#8594;</a>
                 </div>
                 <div class="col-2">
@@ -51,7 +53,7 @@
     <!-- Популярні товари (Карусель) -->
     <div class="popular-products-section small-container">
         <div class="section-top">
-            <h2 class="section-title">Популярні товари</h2>
+            <h2 class="title" data-content="index.newProductsTitle">Нові товари</h2>
             <div class="carousel-nav">
                 <button id="prevBtn"><i class="fa fa-angle-left"></i></button>
                 <button id="nextBtn"><i class="fa fa-angle-right"></i></button>
@@ -132,134 +134,46 @@
             </div>
         </div>
         <h2 class="title">Нові товари</h2>
-        <div class="row">
-            <div class="col-4">
-                <img src="images/4.png">
-                <h4>Червона футболка з принтом</h4>
-                <div class="rating">
-                    <i class="fa fa-star"></i>
-                    <i class="fa fa-star"></i>
-                    <i class="fa fa-star"></i>
-                    <i class="fa fa-star"></i>
-                    <i class="fa fa-star-o"></i>
-                </div>
-                <p>$50.00</p>
-            </div>
-            <div class="col-4">
-                <img src="images/4.png">
-                <h4>Червона футболка з принтом</h4>
-                <div class="rating">
-                    <i class="fa fa-star"></i>
-                    <i class="fa fa-star"></i>
-                    <i class="fa fa-star"></i>
-                    <i class="fa fa-star"></i>
-                    <i class="fa fa-star-o"></i>
-                </div>
-                <p>$50.00</p>
-            </div>
-            <div class="col-4">
-                <img src="images/4.png">
-                <h4>Червона футболка з принтом</h4>
-                <div class="rating">
-                    <i class="fa fa-star"></i>
-                    <i class="fa fa-star"></i>
-                    <i class="fa fa-star"></i>
-                    <i class="fa fa-star"></i>
-                    <i class="fa fa-star-o"></i>
-                </div>
-                <p>$50.00</p>
-            </div>
-            <div class="col-4">
-                <img src="images/4.png">
-                <h4>Червона футболка з принтом</h4>
-                <div class="rating">
-                    <i class="fa fa-star"></i>
-                    <i class="fa fa-star"></i>
-                    <i class="fa fa-star"></i>
-                    <i class="fa fa-star"></i>
-                    <i class="fa fa-star-o"></i>
-                </div>
-                <p>$50.00</p>
-            </div>
+        <div class="row" id="new-products">
+            <!-- Товари будуть завантажені автоматично -->
         </div>
-        <div class="row">
-            <div class="col-4">
-                <img src="images/4.png">
-                <h4>Червона футболка з принтом</h4>
-                <div class="rating">
-                    <i class="fa fa-star"></i>
-                    <i class="fa fa-star"></i>
-                    <i class="fa fa-star"></i>
-                    <i class="fa fa-star"></i>
-                    <i class="fa fa-star-o"></i>
-                </div>
-                <p>$50.00</p>
-            </div>
-            <div class="col-4">
-                <img src="images/4.png">
-                <h4>Червона футболка з принтом</h4>
-                <div class="rating">
-                    <i class="fa fa-star"></i>
-                    <i class="fa fa-star"></i>
-                    <i class="fa fa-star"></i>
-                    <i class="fa fa-star"></i>
-                    <i class="fa fa-star-o"></i>
-                </div>
-                <p>$50.00</p>
-            </div>
-            <div class="col-4">
-                <img src="images/4.png">
-                <h4>Червона футболка з принтом</h4>
-                <div class="rating">
-                    <i class="fa fa-star"></i>
-                    <i class="fa fa-star"></i>
-                    <i class="fa fa-star"></i>
-                    <i class="fa fa-star"></i>
-                    <i class="fa fa-star-o"></i>
-                </div>
-                <p>$50.00</p>
-            </div>
-            <div class="col-4">
-                <img src="images/4.png">
-                <h4>Червона футболка з принтом</h4>
-                <div class="rating">
-                    <i class="fa fa-star"></i>
-                    <i class="fa fa-star"></i>
-                    <i class="fa fa-star"></i>
-                    <i class="fa fa-star"></i>
-                    <i class="fa fa-star-o"></i>
-                </div>
-                <p>$50.00</p>
-            </div>
-        </div>
+    </div>
+
     </div>
 
     <!-- Offer Banner Slider -->
-    <div class="offer-slider-container">
-        <div class="offer-slide-bg" style="background-image: url('images/golovnyj baner.png');"></div>
-        <div class="offer-slide-bg" style="background-image: url('images/golovnyj baner 1.png');"></div>
-        <div class="offer-slide-bg" style="background-image: url('images/golovnyj baner 3.png');"></div>
-        
-        <div class="slider-overlay"></div>
-
-        <img src="images/logo-white.png" class="offer-logo" alt="Hobbyt Logo">
-
-        <div class="offer-slide-content content-1">
-            <h2>Потужний хват – твоя перевага</h2>
-            <p>Розвивай силу пальців, кистей та передпліч за допомогою професійних ручок.</p>
-            <a href="products.html" class="btn">Переглянути каталог</a>
-        </div>
-        <div class="offer-slide-content content-2">
-            <h2>Міцні та надійні матеріали</h2>
-            <p>3D-друк з високоякісного пластику витримує інтенсивні навантаження.</p>
-            <a href="products.html" class="btn">Дізнатись більше</a>
-        </div>
-        <div class="offer-slide-content content-3">
-            <h2>Компактні та зручні</h2>
-            <p>Легкі, портативні та ідеально підходять для тренувань будь-де: в залі чи вдома.</p>
-            <a href="products.html" class="btn">Оформити замовлення</a>
-        </div>
+    <div class="offer-slider-container" id="main-banner-slider">
+        <!-- Слайди будуть завантажені через JS -->
     </div>
+
+    <script>
+        function renderBanners() {
+            const container = document.getElementById('main-banner-slider');
+            if (!container) return;
+
+            // Використовуємо bannerData з products-data.js
+            const slides = bannerData.slides;
+            
+            let html = slides.map((slide, index) => `
+                <div class="offer-slide-bg" style="background-image: url('${slide.image}');"></div>
+            `).join('');
+
+            html += `<div class="slider-overlay"></div>
+                     <img src="images/logo-white.png" class="offer-logo" alt="Hobbyt Logo">`;
+
+            html += slides.map((slide, index) => `
+                <div class="offer-slide-content content-${index + 1}">
+                    <h2>${slide.title}</h2>
+                    <p>${slide.text}</p>
+                    <a href="products.html" class="btn">Переглянути каталог</a>
+                </div>
+            `).join('');
+
+            container.innerHTML = html;
+        }
+
+        document.addEventListener('DOMContentLoaded', renderBanners);
+    </script>
 
     <!-- Testimonial -->
     <div class="testimonial">
