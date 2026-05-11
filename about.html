@@ -10,6 +10,8 @@
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap"
         rel="stylesheet">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+    <script src="js/products-data.js"></script>
+    <script src="js/render.js"></script>
     <style>
         .about-page {
             padding: 50px 0;
@@ -30,11 +32,23 @@
             <nav>
                 <ul id="MenuItems">
                     <li><a href="index.html">Головна</a></li>
-                    <li><a href="products.html">Продукти</a></li>
+                    <li class="dropdown">
+                        <a href="products.html">Продукти <i class="fa fa-caret-down"></i></a>
+                        <div class="dropdown-content">
+                            <a href="products.html?category=handles">Ручки для тренувань</a>
+                            <a href="products.html?category=sets">Сети для тренувань</a>
+                            <a href="products.html?category=blocks">Блоки для тренувань</a>
+                            <a href="products.html?category=tables">Столи для тренувань</a>
+                        </div>
+                    </li>
                     <li><a href="about.html">Про нас</a></li>
+                    <li><a href="delivery.html">Доставка та оплата</a></li>
                 </ul>
             </nav>
-            <a href="cart.html"><img src="images/cart.png" width="30px" height="30px"></a>
+            <a href="cart.html" class="cart-icon-container">
+                <img src="images/cart.png" width="30px" height="30px">
+                <span class="cart-badge">0</span>
+            </a>
             <img src="images/menu.png" class="menu-icon" onclick="menutoggle()">
         </div>
     </div>
@@ -67,7 +81,7 @@
             <h2 class="title">Чому обирають Hobbyt?</h2>
             <div class="row">
                 <div class="col-3 value-box">
-                    <img src="images/2.png" style="width: 60px; height: 60px; margin-bottom: 20px; object-fit: contain;">
+                    <i class="fa fa-rocket"></i>
                     <h3>Інновації</h3>
                     <p>Використовуємо високоточний 3D-друк та сучасні матеріали для створення ручок ідеальної форми.</p>
                 </div>
@@ -104,12 +118,37 @@
     <div class="footer">
         <div class="container">
             <div class="row">
+                <div class="footer-col-1">
+                    <h3>Зв'яжіться з нами</h3>
+                    <ul>
+                        <li><i class="fa fa-phone"></i> +38 (0XX) XXX-XXXX</li>
+                        <li><i class="fa fa-envelope"></i> info@hobbyt.com</li>
+                        <li><i class="fa fa-telegram"></i> @HobbytEquip</li>
+                    </ul>
+                </div>
                 <div class="footer-col-2">
                     <img src="images/logo-white.png">
                     <p>Наша мета — зробити задоволення та користь від спорту доступними для багатьох.
                     </p>
                 </div>
-                
+                <div class="footer-col-3">
+                    <h3>Меню</h3>
+                    <ul>
+                        <li><a href="index.html">Головна</a></li>
+                        <li><a href="products.html">Каталог</a></li>
+                        <li><a href="about.html">Про нас</a></li>
+                        <li><a href="delivery.html">Доставка та оплата</a></li>
+                    </ul>
+                </div>
+                <div class="footer-col-4">
+                    <h3>Слідкуйте за нами</h3>
+                    <ul>
+                        <li><a href="#"><i class="fa fa-instagram"></i> Instagram</a></li>
+                        <li><a href="#"><i class="fa fa-facebook-square"></i> Facebook</a></li>
+                        <li><a href="#"><i class="fa fa-youtube-play"></i> YouTube</a></li>
+                        <li><a href="#"><i class="fa fa-twitter"></i> Twitter</a></li>
+                    </ul>
+                </div>
             </div>
             <hr>
             <p class="copyright">Copyright 2026 - Hobbyt Equipment</p>

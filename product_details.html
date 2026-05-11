@@ -9,6 +9,8 @@
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap"
         rel="stylesheet">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+    <script src="js/products-data.js"></script>
+    <script src="js/render.js"></script>
 </head>
 
 <body class="dark-theme">
@@ -20,8 +22,17 @@
             <nav>
                 <ul id="MenuItems">
                     <li><a href="index.html">Головна</a></li>
-                    <li><a href="products.html">Продукти</a></li>
+                    <li class="dropdown">
+                        <a href="products.html">Продукти <i class="fa fa-caret-down"></i></a>
+                        <div class="dropdown-content">
+                            <a href="products.html?category=handles">Ручки для тренувань</a>
+                            <a href="products.html?category=sets">Сети для тренувань</a>
+                            <a href="products.html?category=blocks">Блоки для тренувань</a>
+                            <a href="products.html?category=tables">Столи для тренувань</a>
+                        </div>
+                    </li>
                     <li><a href="about.html">Про нас</a></li>
+                    <li><a href="delivery.html">Доставка та оплата</a></li>
                 </ul>
             </nav>
             <a href="cart.html"><img src="images/cart.png" width="30px" height="30px"></a>
@@ -52,23 +63,16 @@
 
             </div>
             <div class="col-2">
-                <p>Головна / Футболки</p>
-                <h1>Червона футболка з принтом від HRX</h1>
-                <h4>$50.00</h4>
-                <select>
-                    <option>Оберіть розмір</option>
-                    <option>XXL</option>
-                    <option>XL</option>
-                    <option>L</option>
-                    <option>M</option>
-                    <option>S</option>
-                </select>
+                <p id="ProductCategory">Головна / Товари</p>
+                <h1 id="ProductName">Назва товару</h1>
+                <h4 id="ProductPrice">0 ₴</h4>
+                
                 <input type="number" value="1">
-                <a href="" class="btn">Додати в кошик</a>
+                <a href="#" class="btn">Додати в кошик</a>
 
                 <h3>Деталі товару <i class="fa fa-indent"></i></h3>
                 <br>
-                <p>Оновіть свій літній гардероб за допомогою чоловічої активної футболки HRX. Поєднуйте її з шортами для ранкового тренування або з джинсами для вечірньої прогулянки з друзями.</p>
+                <p id="ProductDesc">Опис товару завантажується...</p>
             </div>
         </div>
     </div>
@@ -137,12 +141,37 @@
     <div class="footer">
         <div class="container">
             <div class="row">
+                <div class="footer-col-1">
+                    <h3>Зв'яжіться з нами</h3>
+                    <ul>
+                        <li><i class="fa fa-phone"></i> +38 (0XX) XXX-XXXX</li>
+                        <li><i class="fa fa-envelope"></i> info@hobbyt.com</li>
+                        <li><i class="fa fa-telegram"></i> @HobbytEquip</li>
+                    </ul>
+                </div>
                 <div class="footer-col-2">
                     <img src="images/logo-white.png">
                     <p>Наша мета — зробити задоволення та користь від спорту доступними для багатьох.
                     </p>
                 </div>
-                
+                <div class="footer-col-3">
+                    <h3>Меню</h3>
+                    <ul>
+                        <li><a href="index.html">Головна</a></li>
+                        <li><a href="products.html">Каталог</a></li>
+                        <li><a href="about.html">Про нас</a></li>
+                        <li><a href="delivery.html">Доставка та оплата</a></li>
+                    </ul>
+                </div>
+                <div class="footer-col-4">
+                    <h3>Слідкуйте за нами</h3>
+                    <ul>
+                        <li><a href="#"><i class="fa fa-instagram"></i> Instagram</a></li>
+                        <li><a href="#"><i class="fa fa-facebook-square"></i> Facebook</a></li>
+                        <li><a href="#"><i class="fa fa-youtube-play"></i> YouTube</a></li>
+                        <li><a href="#"><i class="fa fa-twitter"></i> Twitter</a></li>
+                    </ul>
+                </div>
             </div>
             <hr>
             <p class="copyright">Copyright 2026 - Hobbyt Equipment</p>

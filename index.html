@@ -30,11 +30,23 @@
                 <nav>
                     <ul id="MenuItems">
                         <li><a href="index.html">Головна</a></li>
-                        <li><a href="products.html">Продукти</a></li>
-                        <li><a href="about.html">Про нас</a></li>
+                    <li class="dropdown">
+                        <a href="products.html">Продукти <i class="fa fa-caret-down"></i></a>
+                        <div class="dropdown-content">
+                            <a href="products.html?category=handles">Ручки для тренувань</a>
+                            <a href="products.html?category=sets">Сети для тренувань</a>
+                            <a href="products.html?category=blocks">Блоки для тренувань</a>
+                            <a href="products.html?category=tables">Столи для тренувань</a>
+                        </div>
+                    </li>
+                    <li><a href="about.html">Про нас</a></li>
+                    <li><a href="delivery.html">Доставка та оплата</a></li>
                     </ul>
                 </nav>
-                <a href="cart.html"><img src="images/cart.png" width="30px" height="30px"></a>
+                <a href="cart.html" class="cart-icon-container">
+                    <img src="images/cart.png" width="30px" height="30px">
+                    <span class="cart-badge">0</span>
+                </a>
                 <img src="images/menu.png" class="menu-icon" onclick="menutoggle()">
             </div>
             <div class="row hero-content">
@@ -53,43 +65,14 @@
     <!-- Популярні товари (Карусель) -->
     <div class="popular-products-section small-container">
         <div class="section-top">
-            <h2 class="title" data-content="index.newProductsTitle">Нові товари</h2>
+            <h2 class="section-title">Популярні товари</h2>
             <div class="carousel-nav">
                 <button id="prevBtn"><i class="fa fa-angle-left"></i></button>
                 <button id="nextBtn"><i class="fa fa-angle-right"></i></button>
             </div>
         </div>
         <div class="carousel-container" id="popularCarousel">
-            <div class="product-card">
-                <img src="images/4.png" alt="Product">
-                <h4>Ручка для армрестлінгу PRO</h4>
-                <p>1 200 ₴</p>
-            </div>
-            <div class="product-card">
-                <img src="images/4.png" alt="Product">
-                <h4>Ручка для армрестлінгу Basic</h4>
-                <p>800 ₴</p>
-            </div>
-            <div class="product-card">
-                <img src="images/4.png" alt="Product">
-                <h4>Конус для тренувань</h4>
-                <p>1 500 ₴</p>
-            </div>
-            <div class="product-card">
-                <img src="images/4.png" alt="Product">
-                <h4>Ексцентрик для зап'ястя</h4>
-                <p>1 100 ₴</p>
-            </div>
-            <div class="product-card">
-                <img src="images/4.png" alt="Product">
-                <h4>Універсальна ручка</h4>
-                <p>950 ₴</p>
-            </div>
-            <div class="product-card">
-                <img src="images/4.png" alt="Product">
-                <h4>Ручка 'Циліндр'</h4>
-                <p>1 000 ₴</p>
-            </div>
+            <!-- Товари будуть завантажені через JS -->
         </div>
     </div>
 
@@ -101,41 +84,55 @@
         <h2 class="title">Категорії товарів</h2>
         <div class="row">
             <div class="col-4">
-                <div class="category-col">
-                    <img src="images/4.png">
-                    <div class="category-overlay">
-                        <h3>Ручки для тренувань</h3>
+                <a href="products.html?category=handles">
+                    <div class="category-col">
+                        <img src="images/4.png">
+                        <div class="category-overlay">
+                            <h3>Ручки для тренувань</h3>
+                        </div>
                     </div>
-                </div>
+                </a>
             </div>
             <div class="col-4">
-                <div class="category-col">
-                    <img src="images/3.png">
-                    <div class="category-overlay">
-                        <h3>Сети для тренувань</h3>
+                <a href="products.html?category=sets">
+                    <div class="category-col">
+                        <img src="images/3.png">
+                        <div class="category-overlay">
+                            <h3>Сети для тренувань</h3>
+                        </div>
                     </div>
-                </div>
+                </a>
             </div>
             <div class="col-4">
-                <div class="category-col">
-                    <img src="images/2.png">
-                    <div class="category-overlay">
-                        <h3>Блоки для тренувань</h3>
+                <a href="products.html?category=blocks">
+                    <div class="category-col">
+                        <img src="images/1.png">
+                        <div class="category-overlay">
+                            <h3>Блоки для тренувань</h3>
+                        </div>
                     </div>
-                </div>
+                </a>
             </div>
             <div class="col-4">
-                <div class="category-col">
-                    <img src="images/1.png">
-                    <div class="category-overlay">
-                        <h3>Столи для тренувань</h3>
+                <a href="products.html?category=tables">
+                    <div class="category-col">
+                        <img src="images/2.png">
+                        <div class="category-overlay">
+                            <h3>Столи для тренувань</h3>
+                        </div>
                     </div>
-                </div>
+                </a>
             </div>
         </div>
-        <h2 class="title">Нові товари</h2>
-        <div class="row" id="new-products">
-            <!-- Товари будуть завантажені автоматично -->
+        <div class="section-top" style="margin-top: 50px;">
+            <h2 class="section-title">Розпродаж</h2>
+            <div class="carousel-nav">
+                <button id="newPrevBtn"><i class="fa fa-angle-left"></i></button>
+                <button id="newNextBtn"><i class="fa fa-angle-right"></i></button>
+            </div>
+        </div>
+        <div class="carousel-container" id="newProductsCarousel">
+            <!-- Товари будуть завантажені через JS (тільки 8) -->
         </div>
     </div>
 
@@ -226,10 +223,36 @@
     <div class="footer">
         <div class="container">
             <div class="row">
+                <div class="footer-col-1">
+                    <h3>Зв'яжіться з нами</h3>
+                    <ul>
+                        <li><i class="fa fa-phone"></i> +38 (0XX) XXX-XXXX</li>
+                        <li><i class="fa fa-envelope"></i> info@hobbyt.com</li>
+                        <li><i class="fa fa-telegram"></i> @HobbytEquip</li>
+                    </ul>
+                </div>
                 <div class="footer-col-2">
                     <img src="images/logo-white.png">
                     <p>Наша мета — зробити задоволення та користь від спорту доступними для багатьох.
                     </p>
+                </div>
+                <div class="footer-col-3">
+                    <h3>Меню</h3>
+                    <ul>
+                        <li><a href="index.html">Головна</a></li>
+                        <li><a href="products.html">Каталог</a></li>
+                        <li><a href="about.html">Про нас</a></li>
+                        <li><a href="delivery.html">Доставка та оплата</a></li>
+                    </ul>
+                </div>
+                <div class="footer-col-4">
+                    <h3>Слідкуйте за нами</h3>
+                    <ul>
+                        <li><a href="#"><i class="fa fa-instagram"></i> Instagram</a></li>
+                        <li><a href="#"><i class="fa fa-facebook-square"></i> Facebook</a></li>
+                        <li><a href="#"><i class="fa fa-youtube-play"></i> YouTube</a></li>
+                        <li><a href="#"><i class="fa fa-twitter"></i> Twitter</a></li>
+                    </ul>
                 </div>
 
             </div>

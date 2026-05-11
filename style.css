@@ -27,6 +27,22 @@ nav ul li{
     display: inline-block;
     margin-right: 20px;
 }
+.cart-icon-container {
+    position: relative;
+    display: inline-block;
+}
+.cart-badge {
+    position: absolute;
+    top: -5px;
+    right: -10px;
+    background: #0E5EA3; /* Використовуємо наш синій колір */
+    color: white;
+    border-radius: 50%;
+    padding: 2px 6px;
+    font-size: 10px;
+    font-weight: bold;
+    display: none; /* Сховано за замовчуванням */
+}
 a{
     text-decoration: none;
     color: #555;
@@ -34,6 +50,37 @@ a{
 p{
     color: #555;
 }
+/* Dropdown Menu */
+.dropdown {
+    position: relative;
+    display: inline-block;
+}
+.dropdown-content {
+    display: none;
+    position: absolute;
+    background-color: #1a1a1a;
+    min-width: 220px;
+    box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.5);
+    z-index: 100;
+    text-align: left;
+    border-radius: 5px;
+    padding-top: 10px; /* Створює невидимий місток між кнопкою та меню */
+}
+.dropdown-content a {
+    color: white;
+    padding: 12px 16px;
+    text-decoration: none;
+    display: block;
+    font-size: 14px;
+    transition: background 0.3s;
+}
+.dropdown-content a:hover {
+    background-color: #0E5EA3;
+}
+.dropdown:hover .dropdown-content {
+    display: block;
+}
+
 .container{
     max-width: 1300px;
     margin: auto;
@@ -44,7 +91,7 @@ p{
     display: flex;
     align-items: center;
     flex-wrap: wrap;
-    justify-content: space-around;
+    justify-content: flex-start;
 }
 .col-2{
     flex-basis: 50%;
@@ -89,7 +136,7 @@ p{
     width: 100%;
 }
 .small-container{
-    max-width: 1080px;
+    max-width: 1300px;
     margin: auto;
     padding-left: 25px;
     padding-right: 25px;
@@ -228,8 +275,23 @@ small{
     flex-basis: 12%;
     text-align: center;
 }
-ul{
-    list-style-type: none;
+.footer a {
+    color: #8a8a8a;
+    transition: color 0.3s;
+}
+.footer a:hover {
+    color: #fff;
+}
+.footer ul {
+    list-style: none;
+    padding: 0;
+}
+.footer ul li {
+    margin-bottom: 10px;
+}
+.footer ul li i {
+    margin-right: 10px;
+    color: #0E5EA3;
 }
 .app-logo{
     margin-top: 20px;
@@ -631,7 +693,6 @@ body.dark-theme img.menu-icon {
     margin-bottom: 35px;
     color: #e0e0e0;
     text-align: left;
-    max-width: 450px;
 }
 
 @keyframes kenburnsFade {
@@ -714,7 +775,7 @@ body.dark-theme img.menu-icon {
     display: none; /* Safari and Chrome */
 }
 .product-card {
-    min-width: 250px;
+    flex: 0 0 calc(20% - 16px);
     background: #1e1e1e;
     border-radius: 10px;
     padding: 15px;
@@ -723,6 +784,27 @@ body.dark-theme img.menu-icon {
     border: 1px solid #333;
     display: flex;
     flex-direction: column;
+    position: relative;
+    overflow: hidden;
+}
+.discount-badge {
+    position: absolute;
+    top: 10px;
+    left: 10px;
+    background: #ff523b;
+    color: #fff;
+    padding: 4px 8px;
+    border-radius: 5px;
+    font-size: 11px;
+    font-weight: 700;
+    z-index: 2;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.3);
+}
+.old-price {
+    text-decoration: line-through;
+    color: #777;
+    margin-right: 8px;
+    font-size: 0.85em;
 }
 .product-card:hover {
     transform: translateY(-5px);
@@ -882,4 +964,29 @@ body.dark-theme img.menu-icon {
 .value-box:hover {
     transform: translateY(-10px);
     border-color: #0E5EA3;
+}
+
+/* Product Card Styling */
+.rating {
+    margin: 10px 0;
+}
+.rating .fa {
+    color: #0E5EA3; /* Синій колір для зірок */
+}
+.add-to-cart-btn {
+    display: inline-block;
+    background: #0E5EA3;
+    color: white;
+    padding: 6px 15px;
+    margin-top: 10px;
+    border-radius: 30px;
+    font-size: 13px;
+    border: none;
+    cursor: pointer;
+    transition: background 0.3s;
+    width: 100%; /* Кнопка на всю ширину картки для однаковості */
+    max-width: 150px;
+}
+.add-to-cart-btn:hover {
+    background: #0b4d85;
 }
