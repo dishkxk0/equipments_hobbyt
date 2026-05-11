@@ -199,6 +199,7 @@
             <li onclick="switchSection('products')" id="menu-products"><i class="fa fa-shopping-bag"></i> Товари</li>
             <li onclick="switchSection('banners')" id="menu-banners"><i class="fa fa-image"></i> Банери</li>
             <li onclick="switchSection('pages')" id="menu-pages"><i class="fa fa-file-text"></i> Сторінки</li>
+            <li onclick="switchSection('stats')" id="menu-stats"><i class="fa fa-pie-chart"></i> Статистика</li>
             <li><i class="fa fa-cog"></i> Налаштування</li>
         </ul>
         <div style="margin-top: auto; padding: 20px; text-align: center;">
@@ -275,20 +276,55 @@
             </div>
         </div>
 
-        <div id="section-pages" class="admin-section" style="display: none;">
-            <div class="admin-content-box">
-                <h3>Редагування сторінок</h3>
-                <div class="form-group" style="max-width: 300px; margin-bottom: 30px;">
-                    <label>Оберіть сторінку</label>
-                    <select id="page-selector" onchange="loadPageContentEditor()">
-                        <option value="index">Головна</option>
-                        <option value="about">Про нас</option>
-                    </select>
+        <div id="section-stats" class="admin-section" style="display: none;">
+            <div class="row" style="margin-bottom: 30px;">
+                <div class="col-3 stat-card">
+                    <small>Загальний дохід (місяць)</small>
+                    <h2 id="stats-revenue">0 ₴</h2>
                 </div>
-                <div id="page-content-editor">
-                    <!-- Поля редагування будуть тут -->
+                <div class="col-3 stat-card">
+                    <small>Витрати</small>
+                    <h2 id="stats-expenses" style="color: #e74c3c;">0 ₴</h2>
                 </div>
-                <button class="btn btn-sm" onclick="savePageContent()" style="margin-top: 20px; background: #27ae60;">Зберегти контент сторінки</button>
+                <div class="col-3 stat-card">
+                    <small>Чистий прибуток</small>
+                    <h2 id="stats-profit" style="color: #27ae60;">0 ₴</h2>
+                </div>
+            </div>
+
+            <div class="row" style="gap: 20px;">
+                <div class="col-2 admin-content-box" style="flex: 1;">
+                    <div style="display: flex; justify-content: space-between; margin-bottom: 20px;">
+                        <h3>Витрати</h3>
+                        <button class="btn btn-sm" onclick="openExpenseModal()" style="background: #e74c3c;">+ Додати витрату</button>
+                    </div>
+                    <table class="admin-table">
+                        <thead>
+                            <tr>
+                                <th>Назва</th>
+                                <th>Сума</th>
+                                <th>Действія</th>
+                            </tr>
+                        </thead>
+                        <tbody id="expense-list"></tbody>
+                    </table>
+                </div>
+                <div class="col-2 admin-content-box" style="flex: 1;">
+                    <div style="display: flex; justify-content: space-between; margin-bottom: 20px;">
+                        <h3>Брак / Списання</h3>
+                        <button class="btn btn-sm" onclick="openDefectModal()" style="background: #f39c12;">+ Додати брак</button>
+                    </div>
+                    <table class="admin-table">
+                        <thead>
+                            <tr>
+                                <th>Товар</th>
+                                <th>Сума</th>
+                                <th>Действія</th>
+                            </tr>
+                        </thead>
+                        <tbody id="defect-list"></tbody>
+                    </table>
+                </div>
             </div>
         </div>
 
@@ -301,6 +337,44 @@
     </main>
 
     <!-- Edit Product Modal -->
+    ...
+    <!-- Expense Modal -->
+    <div id="expense-modal" class="modal-overlay">
+        <div class="modal-box">
+            <h3>Додати витрату</h3>
+            <div class="form-group">
+                <label>Назва витрати (оренда, реклама, матеріал)</label>
+                <input type="text" id="expense-name">
+            </div>
+            <div class="form-group">
+                <label>Сума</label>
+                <input type="number" id="expense-amount">
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-sm" onclick="closeExpenseModal()" style="background: #333;">Закрити</button>
+                <button class="btn btn-sm" onclick="saveExpense()" style="background: #e74c3c;">Додати</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Defect Modal -->
+    <div id="defect-modal" class="modal-overlay">
+        <div class="modal-box">
+            <h3>Додати брак</h3>
+            <div class="form-group">
+                <label>Назва товару / Опис браку</label>
+                <input type="text" id="defect-name">
+            </div>
+            <div class="form-group">
+                <label>Сума збитку</label>
+                <input type="number" id="defect-amount">
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-sm" onclick="closeDefectModal()" style="background: #333;">Закрити</button>
+                <button class="btn btn-sm" onclick="saveDefect()" style="background: #f39c12;">Додати</button>
+            </div>
+        </div>
+    </div>
     <div id="edit-modal" class="modal-overlay">
         <div class="modal-box">
             <h3 id="modal-title">Редагувати товар</h3>
@@ -356,9 +430,11 @@
                 'dashboard': 'Дашборд',
                 'products': 'Управління товарами',
                 'banners': 'Управління банерами',
-                'pages': 'Редагування сторінок'
+                'pages': 'Редагування сторінок',
+                'stats': 'Статистика та Фінанси'
             };
             document.querySelector('.admin-header h1').innerText = titles[sectionId];
+            if(sectionId === 'stats') loadStats();
         }
 
         function loadAdminBanners() {
@@ -538,10 +614,78 @@
             });
         }
         
+        function loadStats() {
+            const expenses = JSON.parse(localStorage.getItem('hobbytExpenses')) || [];
+            const defects = JSON.parse(localStorage.getItem('hobbytDefects')) || [];
+            
+            // Заглушка для доходу (можна буде розширити через історію замовлень)
+            const revenue = 150000; 
+            
+            let totalExpenses = expenses.reduce((sum, item) => sum + parseInt(item.amount), 0);
+            let totalDefects = defects.reduce((sum, item) => sum + parseInt(item.amount), 0);
+            let totalOutgoings = totalExpenses + totalDefects;
+            let profit = revenue - totalOutgoings;
+
+            document.getElementById('stats-revenue').innerText = revenue.toLocaleString() + ' ₴';
+            document.getElementById('stats-expenses').innerText = totalOutgoings.toLocaleString() + ' ₴';
+            document.getElementById('stats-profit').innerText = profit.toLocaleString() + ' ₴';
+
+            document.getElementById('expense-list').innerHTML = expenses.map((item, idx) => `
+                <tr>
+                    <td>${item.name}</td>
+                    <td>${item.amount} ₴</td>
+                    <td><button class="btn-sm btn-delete" onclick="deleteStatItem('Expenses', ${idx})"><i class="fa fa-trash"></i></button></td>
+                </tr>
+            `).join('');
+
+            document.getElementById('defect-list').innerHTML = defects.map((item, idx) => `
+                <tr>
+                    <td>${item.name}</td>
+                    <td>${item.amount} ₴</td>
+                    <td><button class="btn-sm btn-delete" onclick="deleteStatItem('Defects', ${idx})"><i class="fa fa-trash"></i></button></td>
+                </tr>
+            `).join('');
+        }
+
+        function openExpenseModal() { document.getElementById('expense-modal').style.display = 'flex'; }
+        function closeExpenseModal() { document.getElementById('expense-modal').style.display = 'none'; }
+        function openDefectModal() { document.getElementById('defect-modal').style.display = 'flex'; }
+        function closeDefectModal() { document.getElementById('defect-modal').style.display = 'none'; }
+
+        function saveExpense() {
+            const name = document.getElementById('expense-name').value;
+            const amount = document.getElementById('expense-amount').value;
+            if(!name || !amount) return;
+            const expenses = JSON.parse(localStorage.getItem('hobbytExpenses')) || [];
+            expenses.push({ name, amount });
+            localStorage.setItem('hobbytExpenses', JSON.stringify(expenses));
+            closeExpenseModal();
+            loadStats();
+        }
+
+        function saveDefect() {
+            const name = document.getElementById('defect-name').value;
+            const amount = document.getElementById('defect-amount').value;
+            if(!name || !amount) return;
+            const defects = JSON.parse(localStorage.getItem('hobbytDefects')) || [];
+            defects.push({ name, amount });
+            localStorage.setItem('hobbytDefects', JSON.stringify(defects));
+            closeDefectModal();
+            loadStats();
+        }
+
+        function deleteStatItem(type, index) {
+            const items = JSON.parse(localStorage.getItem('hobbyt' + type)) || [];
+            items.splice(index, 1);
+            localStorage.setItem('hobbyt' + type, JSON.stringify(items));
+            loadStats();
+        }
+
         document.addEventListener('DOMContentLoaded', () => {
             loadAdminProducts();
             loadAdminBanners();
             loadPageContentEditor();
+            loadStats();
         });
     </script>
 </body>

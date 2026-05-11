@@ -75,8 +75,33 @@
             </table>
         </div>
         
-        <div style="text-align: right; margin-top: 20px;">
-            <a href="#" class="btn" onclick="alert('Дякуємо за замовлення! Менеджер зв\'яжеться з вами.'); localStorage.clear(); location.reload();">Оформити замовлення</a>
+        <div id="checkout-section" style="margin-top: 50px; display: none;">
+            <h2 class="title">Оформлення замовлення</h2>
+            <div class="checkout-form-container">
+                <form id="order-form" class="checkout-form">
+                    <div class="form-group">
+                        <label>Ваше ім'я</label>
+                        <input type="text" id="name" required placeholder="Іван Іванов">
+                    </div>
+                    <div class="form-group">
+                        <label>Номер телефону</label>
+                        <input type="tel" id="user-phone" required placeholder="+38 (0XX) XXX-XXXX">
+                    </div>
+                    <div class="form-group">
+                        <label>Місто та відділення Нової Пошти</label>
+                        <textarea id="address" required placeholder="Київ, відділення №1"></textarea>
+                    </div>
+                    <div class="form-group">
+                        <label>Метод оплати</label>
+                        <select id="payment">
+                            <option value="card">Оплата картою</option>
+                            <option value="cash">Післяплата (накладний платіж)</option>
+                            <option value="crypto">Криптовалюта (USDT)</option>
+                        </select>
+                    </div>
+                    <button type="submit" class="btn">Підтвердити замовлення</button>
+                </form>
+            </div>
         </div>
     </div>
 
@@ -87,9 +112,9 @@
                 <div class="footer-col-1">
                     <h3>Зв'яжіться з нами</h3>
                     <ul>
-                        <li><i class="fa fa-phone"></i> +38 (0XX) XXX-XXXX</li>
+                        <li><a href="tel:+380978194010"><i class="fa fa-phone"></i> +38 (097) 819-4010</a></li>
                         <li><i class="fa fa-envelope"></i> info@hobbyt.com</li>
-                        <li><i class="fa fa-telegram"></i> @HobbytEquip</li>
+                        <li><a href="https://t.me/rmnkbtkn" target="_blank"><i class="fa fa-telegram"></i> @rmnkbtkn</a></li>
                     </ul>
                 </div>
                 <div class="footer-col-2">
