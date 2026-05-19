@@ -129,7 +129,7 @@
             top: 0; left: 0; width: 100%; height: 100%;
             background: rgba(0,0,0,0.8);
             z-index: 500;
-            display: none; /* Hidden by default */
+            display: none;
             align-items: center;
             justify-content: center;
         }
@@ -138,8 +138,10 @@
             padding: 30px;
             border-radius: 15px;
             width: 100%;
-            max-width: 500px;
+            max-width: 600px;
             border: 1px solid #333;
+            max-height: 90vh;
+            overflow-y: auto;
         }
         .modal-box h3 { margin-bottom: 20px; }
         .form-group { margin-bottom: 15px; }
@@ -157,6 +159,7 @@
             margin-top: 25px;
             display: flex;
             justify-content: flex-end;
+            gap: 10px;
         }
         
         /* Export Box */
@@ -176,6 +179,291 @@
             color: #27ae60;
             overflow-x: auto;
             max-height: 200px;
+        }
+
+        /* ===== Banner Management Cards ===== */
+        .banner-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+            gap: 20px;
+            margin-top: 20px;
+        }
+        .banner-card {
+            background: #1a1a1a;
+            border: 1px solid #2a2a2a;
+            border-radius: 12px;
+            overflow: hidden;
+            transition: border-color 0.3s, transform 0.2s, box-shadow 0.3s;
+            position: relative;
+        }
+        .banner-card:hover {
+            border-color: #0E5EA3;
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px rgba(14, 94, 163, 0.15);
+        }
+        .banner-card-image {
+            width: 100%;
+            height: 180px;
+            object-fit: cover;
+            display: block;
+            background: #111;
+        }
+        .banner-card-body {
+            padding: 15px;
+        }
+        .banner-card-number {
+            position: absolute;
+            top: 10px;
+            left: 10px;
+            background: rgba(0,0,0,0.7);
+            backdrop-filter: blur(5px);
+            color: #fff;
+            width: 30px;
+            height: 30px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 13px;
+            font-weight: 600;
+        }
+        .banner-card-title {
+            font-size: 15px;
+            font-weight: 600;
+            color: #fff;
+            margin-bottom: 5px;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+        .banner-card-text {
+            font-size: 12px;
+            color: #888;
+            margin-bottom: 12px;
+            display: -webkit-box;
+            -webkit-line-clamp: 2;
+            line-clamp: 2;
+            -webkit-box-orient: vertical;
+            overflow: hidden;
+            line-height: 1.4;
+        }
+        .banner-card-actions {
+            display: flex;
+            gap: 6px;
+        }
+        .banner-card-actions button {
+            flex: 1;
+            padding: 7px;
+            border: none;
+            border-radius: 6px;
+            cursor: pointer;
+            font-size: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 5px;
+            transition: opacity 0.2s, transform 0.15s;
+        }
+        .banner-card-actions button:hover {
+            opacity: 0.85;
+            transform: scale(1.02);
+        }
+        .banner-card-actions button:active {
+            transform: scale(0.98);
+        }
+        .banner-card-actions .bc-edit {
+            background: #0E5EA3;
+            color: #fff;
+        }
+        .banner-card-actions .bc-delete {
+            background: #e74c3c;
+            color: #fff;
+        }
+        .banner-card-actions .bc-move {
+            background: #333;
+            color: #aaa;
+            flex: 0;
+            padding: 7px 10px;
+        }
+        .banner-card-actions .bc-move:hover {
+            color: #fff;
+            background: #444;
+        }
+
+        /* ===== Upload Drop Zone ===== */
+        .upload-zone {
+            border: 2px dashed #444;
+            border-radius: 12px;
+            padding: 30px 20px;
+            text-align: center;
+            cursor: pointer;
+            transition: border-color 0.3s, background 0.3s;
+            position: relative;
+            background: #1a1a1a;
+        }
+        .upload-zone:hover {
+            border-color: #0E5EA3;
+            background: rgba(14, 94, 163, 0.05);
+        }
+        .upload-zone.drag-over {
+            border-color: #0E5EA3;
+            background: rgba(14, 94, 163, 0.1);
+            border-style: solid;
+        }
+        .upload-zone-icon {
+            font-size: 36px;
+            color: #555;
+            margin-bottom: 10px;
+            transition: color 0.3s;
+        }
+        .upload-zone:hover .upload-zone-icon {
+            color: #0E5EA3;
+        }
+        .upload-zone-text {
+            color: #888;
+            font-size: 14px;
+            margin-bottom: 5px;
+        }
+        .upload-zone-hint {
+            color: #555;
+            font-size: 12px;
+        }
+        .upload-zone input[type="file"] {
+            position: absolute;
+            top: 0; left: 0;
+            width: 100%;
+            height: 100%;
+            opacity: 0;
+            cursor: pointer;
+        }
+        .upload-preview-container {
+            position: relative;
+            margin-top: 10px;
+            border-radius: 10px;
+            overflow: hidden;
+            display: none;
+        }
+        .upload-preview-container.has-image {
+            display: block;
+        }
+        .upload-preview-img {
+            width: 100%;
+            max-height: 200px;
+            object-fit: cover;
+            border-radius: 10px;
+            border: 1px solid #333;
+            display: block;
+        }
+        .upload-preview-remove {
+            position: absolute;
+            top: 8px;
+            right: 8px;
+            background: rgba(231, 76, 60, 0.9);
+            color: #fff;
+            border: none;
+            width: 28px;
+            height: 28px;
+            border-radius: 50%;
+            cursor: pointer;
+            font-size: 14px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: background 0.2s;
+        }
+        .upload-preview-remove:hover {
+            background: #c0392b;
+        }
+        .upload-preview-filename {
+            padding: 8px 12px;
+            background: #222;
+            border-radius: 0 0 10px 10px;
+            font-size: 12px;
+            color: #aaa;
+            display: flex;
+            align-items: center;
+            gap: 5px;
+        }
+
+        /* ===== Image path input (alternative) ===== */
+        .path-input-alt {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin-top: 10px;
+        }
+        .path-input-alt input {
+            flex: 1;
+        }
+        .divider-or {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            margin: 15px 0;
+            color: #555;
+            font-size: 12px;
+        }
+        .divider-or::before, .divider-or::after {
+            content: '';
+            flex: 1;
+            height: 1px;
+            background: #333;
+        }
+
+        /* ===== Add Banner Card Button ===== */
+        .banner-card-add {
+            background: #1a1a1a;
+            border: 2px dashed #333;
+            border-radius: 12px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            min-height: 280px;
+            cursor: pointer;
+            transition: border-color 0.3s, background 0.3s;
+        }
+        .banner-card-add:hover {
+            border-color: #0E5EA3;
+            background: rgba(14, 94, 163, 0.05);
+        }
+        .banner-card-add i {
+            font-size: 40px;
+            color: #555;
+            margin-bottom: 10px;
+            transition: color 0.3s;
+        }
+        .banner-card-add:hover i {
+            color: #0E5EA3;
+        }
+        .banner-card-add span {
+            color: #666;
+            font-size: 14px;
+        }
+
+        /* ===== Status Toast ===== */
+        .toast-notification {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            background: #27ae60;
+            color: #fff;
+            padding: 12px 24px;
+            border-radius: 8px;
+            font-size: 14px;
+            z-index: 1000;
+            box-shadow: 0 5px 20px rgba(39, 174, 96, 0.3);
+            transform: translateY(100px);
+            opacity: 0;
+            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        }
+        .toast-notification.show {
+            transform: translateY(0);
+            opacity: 1;
+        }
+        .toast-notification.error {
+            background: #e74c3c;
+            box-shadow: 0 5px 20px rgba(231, 76, 60, 0.3);
         }
     </style>
 </head>
@@ -257,22 +545,13 @@
 
         <div id="section-banners" class="admin-section" style="display: none;">
             <div class="admin-content-box">
-                <h3>Управління банерами (Слайдер)</h3>
-                <p style="margin-bottom: 20px; color: #aaa;">Тут ви можете змінити 3 основні слайди головного банера.</p>
-                <table class="admin-table">
-                    <thead>
-                        <tr>
-                            <th>№</th>
-                            <th>Фото</th>
-                            <th>Заголовок</th>
-                            <th>Текст</th>
-                            <th>Дії</th>
-                        </tr>
-                    </thead>
-                    <tbody id="admin-banner-list">
-                        <!-- Буде заповнено через JS -->
-                    </tbody>
-                </table>
+                <p style="margin-bottom: 20px; color: #888; font-size: 14px;">
+                    <i class="fa fa-info-circle" style="color: #0E5EA3;"></i>
+                    Завантажуйте зображення або вкажіть шлях. Зміни застосовуються автоматично на слайдер.
+                </p>
+                <div class="banner-grid" id="admin-banner-grid">
+                    <!-- Банер-картки будуть згенеровані через JS -->
+                </div>
             </div>
         </div>
 
@@ -409,6 +688,46 @@
         </div>
     </div>
 
+    <!-- Banner Modal -->
+    <div id="banner-modal" class="modal-overlay">
+        <div class="modal-box">
+            <h3 id="banner-modal-title">Редагувати банер</h3>
+            <input type="hidden" id="edit-banner-index">
+
+            <div class="form-group">
+                <label><i class="fa fa-image" style="margin-right: 5px;"></i> Зображення банера</label>
+                <div class="upload-zone" id="banner-upload-zone">
+                    <input type="file" id="banner-file-input" accept="image/*">
+                    <div class="upload-zone-icon"><i class="fa fa-cloud-upload"></i></div>
+                    <div class="upload-zone-text">Перетягніть зображення сюди або натисніть для вибору</div>
+                    <div class="upload-zone-hint">PNG, JPG, WEBP до 5MB</div>
+                </div>
+                <div class="upload-preview-container" id="banner-upload-preview">
+                    <img class="upload-preview-img" id="banner-preview-img" src="">
+                    <button class="upload-preview-remove" onclick="removeBannerImage()" title="Видалити"><i class="fa fa-times"></i></button>
+                </div>
+                <div class="divider-or">або вкажіть шлях</div>
+                <div class="path-input-alt">
+                    <input type="text" id="edit-banner-image" placeholder="images/banner.png">
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label><i class="fa fa-heading" style="margin-right: 5px;"></i> Заголовок слайда</label>
+                <input type="text" id="edit-banner-title" placeholder="Наприклад: Потужний хват">
+            </div>
+            <div class="form-group">
+                <label><i class="fa fa-align-left" style="margin-right: 5px;"></i> Текст слайда</label>
+                <textarea id="edit-banner-text" rows="3" placeholder="Опис для банера..."></textarea>
+            </div>
+
+            <div class="modal-footer">
+                <button class="btn btn-sm" onclick="closeBannerModal()" style="background: #333;">Скасувати</button>
+                <button class="btn btn-sm btn-edit" onclick="saveBanner()"><i class="fa fa-check" style="margin-right: 5px;"></i>Зберегти</button>
+            </div>
+        </div>
+    </div>
+
     <script src="js/products-data.js"></script>
     <script>
         function checkLogin() {
@@ -437,47 +756,227 @@
             if(sectionId === 'stats') loadStats();
         }
 
+        // === Temp variable to hold uploaded image data ===
+        let pendingBannerImageData = null;
+
         function loadAdminBanners() {
-            const tbody = document.getElementById('admin-banner-list');
+            const grid = document.getElementById('admin-banner-grid');
             const totalBannersEl = document.getElementById('total-banners');
             if(totalBannersEl) totalBannersEl.innerText = bannerData.slides.length;
             
-            tbody.innerHTML = bannerData.slides.map((s, index) => `
-                <tr>
-                    <td>${index + 1}</td>
-                    <td><img src="${s.image}" width="60" style="border-radius: 5px;"></td>
-                    <td>${s.title}</td>
-                    <td>${s.text}</td>
-                    <td>
-                        <button class="btn-sm btn-edit" onclick="openBannerModal(${index})"><i class="fa fa-pencil"></i></button>
-                    </td>
-                </tr>
+            let html = bannerData.slides.map((s, index) => `
+                <div class="banner-card">
+                    <div class="banner-card-number">${index + 1}</div>
+                    <img class="banner-card-image" src="${s.image}" alt="${s.title}" onerror="this.src='data:image/svg+xml;utf8,<svg xmlns=%22http://www.w3.org/2000/svg%22 width=%22400%22 height=%22180%22><rect fill=%22%23222%22 width=%22400%22 height=%22180%22/><text fill=%22%23555%22 x=%2250%25%22 y=%2250%25%22 text-anchor=%22middle%22 dy=%22.35em%22 font-size=%2218%22>Немає зображення</text></svg>';">
+                    <div class="banner-card-body">
+                        <div class="banner-card-title">${s.title}</div>
+                        <div class="banner-card-text">${s.text || 'Без опису'}</div>
+                        <div class="banner-card-actions">
+                            ${index > 0 ? `<button class="bc-move" onclick="moveBanner(${index}, -1)" title="Вгору"><i class="fa fa-arrow-up"></i></button>` : ''}
+                            ${index < bannerData.slides.length - 1 ? `<button class="bc-move" onclick="moveBanner(${index}, 1)" title="Вниз"><i class="fa fa-arrow-down"></i></button>` : ''}
+                            <button class="bc-edit" onclick="openBannerModal(${index})"><i class="fa fa-pencil"></i> Редагувати</button>
+                            <button class="bc-delete" onclick="deleteBanner(${index})"><i class="fa fa-trash"></i></button>
+                        </div>
+                    </div>
+                </div>
             `).join('');
+
+            // Add banner button as a card
+            html += `
+                <div class="banner-card-add" onclick="openAddBannerModal()">
+                    <i class="fa fa-plus-circle"></i>
+                    <span>Додати банер</span>
+                </div>
+            `;
+
+            grid.innerHTML = html;
+        }
+
+        function moveBanner(index, direction) {
+            const newIndex = index + direction;
+            if (newIndex < 0 || newIndex >= bannerData.slides.length) return;
+            const temp = bannerData.slides[index];
+            bannerData.slides[index] = bannerData.slides[newIndex];
+            bannerData.slides[newIndex] = temp;
+            loadAdminBanners();
+            showUpdatedCode();
+            showToast('Порядок банерів змінено');
         }
 
         function openBannerModal(index) {
             const slide = bannerData.slides[index];
+            pendingBannerImageData = null;
+            document.getElementById('banner-modal-title').innerText = 'Редагувати банер #' + (index + 1);
             document.getElementById('edit-banner-index').value = index;
             document.getElementById('edit-banner-title').value = slide.title;
             document.getElementById('edit-banner-text').value = slide.text;
-            document.getElementById('edit-banner-image').value = slide.image;
+            document.getElementById('edit-banner-image').value = slide.image.startsWith('data:') ? '' : slide.image;
+            showUploadPreview(slide.image);
+            document.getElementById('banner-modal').style.display = 'flex';
+        }
+
+        function openAddBannerModal() {
+            pendingBannerImageData = null;
+            document.getElementById('banner-modal-title').innerText = 'Додати новий банер';
+            document.getElementById('edit-banner-index').value = 'new';
+            document.getElementById('edit-banner-title').value = '';
+            document.getElementById('edit-banner-text').value = '';
+            document.getElementById('edit-banner-image').value = '';
+            hideUploadPreview();
             document.getElementById('banner-modal').style.display = 'flex';
         }
 
         function closeBannerModal() {
             document.getElementById('banner-modal').style.display = 'none';
+            pendingBannerImageData = null;
+        }
+
+        // === Upload Zone Logic ===
+        function initUploadZone() {
+            const zone = document.getElementById('banner-upload-zone');
+            const fileInput = document.getElementById('banner-file-input');
+            if (!zone || !fileInput) return;
+
+            zone.addEventListener('dragover', (e) => {
+                e.preventDefault();
+                zone.classList.add('drag-over');
+            });
+            zone.addEventListener('dragleave', () => {
+                zone.classList.remove('drag-over');
+            });
+            zone.addEventListener('drop', (e) => {
+                e.preventDefault();
+                zone.classList.remove('drag-over');
+                const file = e.dataTransfer.files[0];
+                if (file) handleBannerFile(file);
+            });
+            fileInput.addEventListener('change', (e) => {
+                const file = e.target.files[0];
+                if (file) handleBannerFile(file);
+                e.target.value = ''; // reset so same file can be re-selected
+            });
+
+            // Live preview when path changes
+            const pathInput = document.getElementById('edit-banner-image');
+            if (pathInput) {
+                pathInput.addEventListener('input', (e) => {
+                    if (e.target.value) {
+                        pendingBannerImageData = null;
+                        showUploadPreview(e.target.value);
+                    } else {
+                        hideUploadPreview();
+                    }
+                });
+            }
+        }
+
+        function handleBannerFile(file) {
+            if (!file.type.startsWith('image/')) {
+                showToast('Потрібно вибрати зображення!', true);
+                return;
+            }
+            if (file.size > 5 * 1024 * 1024) {
+                showToast('Файл занадто великий (макс. 5MB)', true);
+                return;
+            }
+
+            const reader = new FileReader();
+            reader.onload = (e) => {
+                pendingBannerImageData = e.target.result;
+                document.getElementById('edit-banner-image').value = '';
+                showUploadPreview(pendingBannerImageData);
+                showToast('Зображення завантажено');
+            };
+            reader.readAsDataURL(file);
+        }
+
+        function showUploadPreview(src) {
+            const container = document.getElementById('banner-upload-preview');
+            const img = document.getElementById('banner-preview-img');
+            if (src) {
+                img.src = src;
+                img.onerror = () => {
+                    container.classList.remove('has-image');
+                };
+                container.classList.add('has-image');
+            } else {
+                container.classList.remove('has-image');
+            }
+        }
+
+        function hideUploadPreview() {
+            const container = document.getElementById('banner-upload-preview');
+            container.classList.remove('has-image');
+        }
+
+        function removeBannerImage() {
+            pendingBannerImageData = null;
+            document.getElementById('edit-banner-image').value = '';
+            hideUploadPreview();
         }
 
         function saveBanner() {
-            const index = document.getElementById('edit-banner-index').value;
-            bannerData.slides[index] = {
-                image: document.getElementById('edit-banner-image').value,
+            const indexVal = document.getElementById('edit-banner-index').value;
+            const imagePath = document.getElementById('edit-banner-image').value;
+            const imageSource = pendingBannerImageData || imagePath;
+
+            const newSlide = {
+                image: imageSource,
                 title: document.getElementById('edit-banner-title').value,
                 text: document.getElementById('edit-banner-text').value
             };
+
+            if (!newSlide.image) {
+                showToast('Завантажте зображення або вкажіть шлях!', true);
+                return;
+            }
+            if (!newSlide.title) {
+                showToast('Заповніть заголовок банера!', true);
+                return;
+            }
+
+            if (indexVal === 'new') {
+                bannerData.slides.push(newSlide);
+                showToast('Банер додано!');
+            } else {
+                bannerData.slides[parseInt(indexVal)] = newSlide;
+                showToast('Банер оновлено!');
+            }
+
             closeBannerModal();
             loadAdminBanners();
             showUpdatedCode();
+        }
+
+        function deleteBanner(index) {
+            if (bannerData.slides.length <= 1) {
+                showToast('Потрібен хоча б 1 банер!', true);
+                return;
+            }
+            if (confirm('Видалити банер #' + (index + 1) + '?')) {
+                bannerData.slides.splice(index, 1);
+                loadAdminBanners();
+                showUpdatedCode();
+                showToast('Банер видалено');
+            }
+        }
+
+        // === Toast Notifications ===
+        function showToast(message, isError = false) {
+            let toast = document.getElementById('admin-toast');
+            if (!toast) {
+                toast = document.createElement('div');
+                toast.id = 'admin-toast';
+                toast.className = 'toast-notification';
+                document.body.appendChild(toast);
+            }
+            toast.textContent = message;
+            toast.classList.toggle('error', isError);
+            toast.classList.add('show');
+            clearTimeout(toast._hideTimer);
+            toast._hideTimer = setTimeout(() => {
+                toast.classList.remove('show');
+            }, 2500);
         }
 
         function loadPageContentEditor() {
@@ -684,6 +1183,7 @@
         document.addEventListener('DOMContentLoaded', () => {
             loadAdminProducts();
             loadAdminBanners();
+            initUploadZone();
             loadPageContentEditor();
             loadStats();
         });

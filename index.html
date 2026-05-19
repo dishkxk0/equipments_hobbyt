@@ -21,10 +21,8 @@
 <body class="dark-theme">
 
     <div class="header hero-header">
-        <div class="hero-slider">
-            <div class="slide" style="background-image: url('images/golovnyj baner.png');"></div>
-            <div class="slide" style="background-image: url('images/golovnyj baner 1.png');"></div>
-            <div class="slide" style="background-image: url('images/golovnyj baner 3.png');"></div>
+        <div class="hero-slider" id="hero-slider-container">
+            <!-- Слайди генеруються динамічно через JS -->
             <div class="overlay"></div>
         </div>
         <div class="container relative-container">
@@ -153,25 +151,59 @@
             const container = document.getElementById('main-banner-slider');
             if (!container) return;
 
-            // Використовуємо bannerData з products-data.js
             const slides = bannerData.slides;
-            
-            let html = slides.map((slide, index) => `
-                <div class="offer-slide-bg" style="background-image: url('${slide.image}');"></div>
-            `).join('');
+            const count = slides.length;
+            const slideDuration = 5; // секунд на слайд
+            const totalDuration = count * slideDuration;
+
+            // Генеруємо фонові слайди з динамічною анімацією
+            let html = slides.map((slide, index) => {
+                const delay = index * slideDuration;
+                return `<div class="offer-slide-bg" style="background-image: url('${slide.image}'); animation: bannerFade ${totalDuration}s infinite; animation-delay: ${delay}s;"></div>`;
+            }).join('');
 
             html += `<div class="slider-overlay"></div>
                      <img src="images/logo-white.png" class="offer-logo" alt="Hobbyt Logo">`;
 
-            html += slides.map((slide, index) => `
-                <div class="offer-slide-content content-${index + 1}">
+            // Генеруємо текстовий контент з динамічною анімацією
+            html += slides.map((slide, index) => {
+                const delay = index * slideDuration;
+                return `<div class="offer-slide-content" style="animation: bannerTextFade ${totalDuration}s infinite; animation-delay: ${delay}s;">
                     <h2>${slide.title}</h2>
                     <p>${slide.text}</p>
                     <a href="products.html" class="btn">Переглянути каталог</a>
-                </div>
-            `).join('');
+                </div>`;
+            }).join('');
 
             container.innerHTML = html;
+
+            // Динамічно створюємо @keyframes під поточну кількість слайдів
+            const fadeIn = 5 / totalDuration * 100;   // % для fade-in
+            const visible = (100 / count);             // % видимості одного слайда
+            const fadeOut = visible + fadeIn;           // % до повного зникнення
+
+            let styleEl = document.getElementById('dynamic-banner-anim');
+            if (!styleEl) {
+                styleEl = document.createElement('style');
+                styleEl.id = 'dynamic-banner-anim';
+                document.head.appendChild(styleEl);
+            }
+            styleEl.textContent = `
+                @keyframes bannerFade {
+                    0% { opacity: 0; transform: scale(1.0); }
+                    ${fadeIn.toFixed(2)}% { opacity: 1; }
+                    ${visible.toFixed(2)}% { opacity: 1; }
+                    ${fadeOut.toFixed(2)}% { opacity: 0; transform: scale(1.08); }
+                    100% { opacity: 0; transform: scale(1.08); }
+                }
+                @keyframes bannerTextFade {
+                    0% { opacity: 0; }
+                    ${fadeIn.toFixed(2)}% { opacity: 1; }
+                    ${visible.toFixed(2)}% { opacity: 1; }
+                    ${fadeOut.toFixed(2)}% { opacity: 0; }
+                    100% { opacity: 0; }
+                }
+            `;
         }
 
         document.addEventListener('DOMContentLoaded', renderBanners);

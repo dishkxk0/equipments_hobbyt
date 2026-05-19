@@ -156,18 +156,21 @@ function renderCart() {
     let cart = JSON.parse(localStorage.getItem('hobbytCart')) || [];
     let subtotal = 0;
 
-    const checkoutSection = document.getElementById('checkout-section');
+    const checkoutBtn = document.getElementById('checkout-btn-container');
 
     if (cart.length === 0) {
         container.innerHTML = '<tr><td colspan="3" style="text-align:center; padding: 50px;">Кошик порожній</td></tr>';
-        document.getElementById('cart-subtotal').innerText = '0 ₴';
-        document.getElementById('cart-tax').innerText = '0 ₴';
-        document.getElementById('cart-total').innerText = '0 ₴';
-        if (checkoutSection) checkoutSection.style.display = 'none';
+        const subtotalEl = document.getElementById('cart-subtotal');
+        if (subtotalEl) subtotalEl.innerText = '0 ₴';
+        const taxEl = document.getElementById('cart-tax');
+        if (taxEl) taxEl.innerText = '0 ₴';
+        const totalEl = document.getElementById('cart-total');
+        if (totalEl) totalEl.innerText = '0 ₴';
+        if (checkoutBtn) checkoutBtn.style.display = 'none';
         return;
     }
 
-    if (checkoutSection) checkoutSection.style.display = 'block';
+    if (checkoutBtn) checkoutBtn.style.display = 'block';
 
     container.innerHTML = cart.map((item, index) => {
         const price = parseInt(item.price.replace(/[^\d]/g, ''));
@@ -194,28 +197,96 @@ function renderCart() {
     const tax = Math.round(subtotal * 0.2);
     const total = subtotal + tax;
 
-    document.getElementById('cart-subtotal').innerText = subtotal.toLocaleString() + ' ₴';
-    document.getElementById('cart-tax').innerText = tax.toLocaleString() + ' ₴';
-    document.getElementById('cart-total').innerText = total.toLocaleString() + ' ₴';
+    const subtotalEl = document.getElementById('cart-subtotal');
+    const taxEl = document.getElementById('cart-tax');
+    const totalEl = document.getElementById('cart-total');
+
+    if (subtotalEl) subtotalEl.innerText = subtotal.toLocaleString() + ' ₴';
+    if (taxEl) taxEl.innerText = tax.toLocaleString() + ' ₴';
+    if (totalEl) totalEl.innerText = total.toLocaleString() + ' ₴';
+}
+
+function renderCheckout() {
+    const container = document.getElementById('checkout-items-list');
+    if (!container) return;
+
+    let cart = JSON.parse(localStorage.getItem('hobbytCart')) || [];
+    let subtotal = 0;
+
+    if (cart.length === 0) {
+        container.innerHTML = '<p style="text-align:center;">Кошик порожній</p>';
+        document.getElementById('checkout-subtotal').innerText = '0 ₴';
+        document.getElementById('checkout-total').innerText = '0 ₴';
+        return;
+    }
+
+    container.innerHTML = cart.map((item, index) => {
+        const price = parseInt(item.price.replace(/[^\d]/g, ''));
+        subtotal += price * item.quantity;
+        return `
+            <div class="checkout-item">
+                <img src="${item.image}" alt="${item.name}">
+                <div class="checkout-item-details">
+                    <div class="checkout-item-title">${item.name}</div>
+                    <div class="checkout-item-controls">
+                        <div class="checkout-item-qty">
+                            <button type="button" class="qty-btn" onclick="updateCheckoutQuantity(${index}, -1)">-</button>
+                            <span style="width: 20px; text-align: center;">${item.quantity}</span>
+                            <button type="button" class="qty-btn" onclick="updateCheckoutQuantity(${index}, 1)">+</button>
+                        </div>
+                        <div class="checkout-item-price">${(price * item.quantity).toLocaleString()} ₴</div>
+                        <button type="button" class="remove-item-btn" onclick="removeCheckoutItem(${index})">
+                            <i class="fa fa-trash-o"></i>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        `;
+    }).join('');
+
+    const tax = 0; // На скріншоті немає ПДВ
+    const total = subtotal + tax; // Plus shipping if calculated
+
+    document.getElementById('checkout-subtotal').innerText = subtotal.toLocaleString() + ' ₴';
+    document.getElementById('checkout-total').innerText = total.toLocaleString() + ' ₴';
 
     // Слухач для форми
-    const orderForm = document.getElementById('order-form');
-    if (orderForm) {
+    const orderForm = document.getElementById('checkout-form');
+    if (orderForm && !orderForm.dataset.initialized) {
+        orderForm.dataset.initialized = 'true';
         orderForm.onsubmit = function(e) {
             e.preventDefault();
-            const name = document.getElementById('name').value;
-            const phone = document.getElementById('user-phone').value;
-            const address = document.getElementById('address').value;
-            const payment = document.getElementById('payment').value;
+            
+            // Collect form data
+            const isCorp = document.getElementById('corp-order').checked;
+            const phone = document.getElementById('phone').value;
+            const email = document.getElementById('email').value;
+            const firstName = document.getElementById('first-name').value;
+            const lastName = document.getElementById('last-name').value;
+            const deliverToAlt = document.getElementById('alt-address').checked;
+            const street = document.getElementById('street').value;
+            const street2 = document.getElementById('street-2').value;
+            const city = document.getElementById('city').value;
+            const region = document.getElementById('region').value;
+            const zip = document.getElementById('zip').value;
+            const notes = document.getElementById('notes').value;
+            
+            const doNotCall = document.getElementById('do-not-call').checked;
+            const paymentMethodStr = document.querySelector('input[name="payment_method"]:checked').value;
 
             // Формуємо список товарів для повідомлення
-            let itemsText = cart.map(item => `• ${item.name} x${item.quantity} - ${item.price}`).join('\n');
+            let itemsText = cart.map(item => `• ${item.name} x${item.quantity} - ${(parseInt(item.price.replace(/[^\\d]/g, '')) * item.quantity).toLocaleString()} ₴`).join('\n');
             
-            const message = `🔔 НОВЕ ЗАМОВЛЕННЯ!\n\n` +
-                            `👤 Покупець: ${name}\n` +
+            const message = `🔔 НОВЕ ЗАМОВЛЕННЯ (Checkout)!\n\n` +
+                            `👤 Покупець: ${firstName} ${lastName}\n` +
                             `📞 Телефон: ${phone}\n` +
-                            `📍 Адреса: ${address}\n` +
-                            `💳 Оплата: ${payment}\n` +
+                            `✉️ E-mail: ${email}\n` +
+                            `🏢 Корпоративне: ${isCorp ? 'Так' : 'Ні'}\n` +
+                            `📍 Адреса: ${city}, ${region}, Вул. ${street} ${street2}, Індекс: ${zip}\n` +
+                            `${deliverToAlt ? '⚠️ Доставка на іншу адресу\n' : ''}` +
+                            `📝 Нотатки: ${notes || '-'}\n` +
+                            `💳 Оплата: ${paymentMethodStr}\n` +
+                            `🔕 Не дзвонити: ${doNotCall ? 'Так' : 'Ні'}\n` +
                             `------------------------\n` +
                             `📦 Товари:\n${itemsText}\n` +
                             `------------------------\n` +
@@ -235,10 +306,10 @@ function renderCart() {
                 body: JSON.stringify({
                     chat_id: chatId,
                     text: message,
-                    parse_mode: 'HTML' // Можна використовувати HTML теги, але зверху просто текст
+                    parse_mode: 'HTML'
                 })
             }).then(() => {
-                alert('Дякуємо, ' + name + '! Ваше замовлення прийнято. Менеджер зв\'яжеться з вами найближчим часом.');
+                alert('Дякуємо, ' + firstName + '! Ваше замовлення прийнято. Менеджер зв\'яжеться з вами найближчим часом.');
                 localStorage.clear();
                 window.location.href = 'index.html';
             }).catch(err => {
@@ -246,7 +317,47 @@ function renderCart() {
                 alert('Сталася помилка при оформленні. Спробуйте ще раз або зв\'яжіться з нами.');
             });
         };
+        
+        // Show/hide payment descriptions
+        const paymentRadios = document.querySelectorAll('input[name="payment_method"]');
+        paymentRadios.forEach(radio => {
+            radio.addEventListener('change', (e) => {
+                document.querySelectorAll('.payment-desc').forEach(desc => desc.style.display = 'none');
+                const id = e.target.id;
+                const desc = document.getElementById('desc-' + id);
+                if(desc) desc.style.display = 'block';
+            });
+        });
+
+        // Show/hide alt address fields
+        const altAddressCheck = document.getElementById('alt-address');
+        const altFielsdContainer = document.querySelector('.alt-address-fields');
+        if(altAddressCheck && altFielsdContainer) {
+            altAddressCheck.addEventListener('change', (e) => {
+                altFielsdContainer.style.display = e.target.checked ? 'block' : 'none';
+            });
+        }
     }
+}
+
+function updateCheckoutQuantity(index, delta) {
+    let cart = JSON.parse(localStorage.getItem('hobbytCart')) || [];
+    if(cart[index]) {
+        cart[index].quantity += delta;
+        if(cart[index].quantity < 1) cart[index].quantity = 1;
+        localStorage.setItem('hobbytCart', JSON.stringify(cart));
+        renderCheckout();
+        updateCartBadge();
+    }
+}
+
+function removeCheckoutItem(index) {
+    let cart = JSON.parse(localStorage.getItem('hobbytCart')) || [];
+    cart.splice(index, 1);
+    localStorage.setItem('hobbytCart', JSON.stringify(cart));
+    renderCheckout();
+    renderCart(); // in case both are somehow open/needed
+    updateCartBadge();
 }
 
 function removeFromCart(index) {
@@ -299,6 +410,7 @@ document.addEventListener('DOMContentLoaded', () => {
     renderCart();
     updateCartBadge();
     renderSingleProduct();
+    renderCheckout();
 
     // Додаємо навігацію для нової каруселі
     const newCarousel = document.getElementById('newProductsCarousel');
